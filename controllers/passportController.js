@@ -27,11 +27,10 @@ module.exports = function(passport) {
     // Giúp ta lấy dữ liệu user dựa vào thông tin lưu trên session và gắn vào req.user
 
     passport.deserializeUser(function(id, done) {
-      console.log("ID: ");
-      console.log(id);
-	    connection.query("select * from users where id = '"+ id+"'",function(err,rows){
+      let sql = 'select * from users where id = ?'
+	    connection.query(sql,[id],function(err,rows){
       if(err){
-        console.log(er);
+        console.log(err);
       }
         console.log("A3");
         return done(null,rows[0]);
@@ -54,10 +53,11 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, id, password, done) {
-
+        
     		// find a user whose id is the same as the forms id
-    		// we are checking to see if the user trying to login already exists
-        connection.query("select * from users where id = '"+id+"'",function(err,rows){
+        // we are checking to see if the user trying to login already exists
+        let sql = 'select * from users where id = ?'
+        connection.query(sql,[id],function(err,rows){
         console.log("Rows: ");
         console.log(rows);
   			console.log("above row object");
@@ -77,10 +77,10 @@ module.exports = function(passport) {
     			newUserMysql.id    = id;
           newUserMysql.password = password; // use the generateHash function in our user model
           // newUserMysql.name = req.body.name; // use the generateHash function in our user model
-
-    			var insertQuery = "INSERT INTO users ( id, password,name ) values ('" + id +"','"+ password +"','"+ req.body.name +"')";
+          var insertQuery = 'INSERT INTO users ( id, password,name ) values (?,?,?)';
+    			//var insertQuery = "INSERT INTO users ( id, password,name ) values ('" + id +"','"+ password +"','"+ req.body.name +"')";
           console.log(insertQuery);
-    			connection.query(insertQuery,function(err,rows){
+    			connection.query(insertQuery,[id,password,req.body.name],function(err,rows){
       		newUserMysql.ordernumber = rows.insertId;
           console.log("newUserMySql: ");
           console.log(newUserMysql);
@@ -103,8 +103,8 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, id, password, done) { // callback with id and password from our form
-
-        connection.query("SELECT * FROM `users` WHERE `id` = '" + id + "'",function(err,rows){
+        let sql = 'SELECT * FROM users WHERE id = ?';
+        connection.query(sql,[id],function(err,rows){
 
       			if (err){
               return done(err);

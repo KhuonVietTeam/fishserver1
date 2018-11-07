@@ -58,7 +58,6 @@ app.get('/KO', function (req, res) {
 passportRouter(app);
 
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
