@@ -15,9 +15,9 @@ var app = express();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var socket_io    = require( "socket.io" );
-var todoRouter = require('./routes/todoRouter')(app);
-var usersRouter = require('./routes/userRouter')(app);
-var bookkeepingRouter = require('./routes/bookkeepingRouter')(app);
+var todoRouter = require('./routes/todoRouter');
+var usersRouter = require('./routes/userRouter');
+var bookkeepingRouter = require('./routes/bookkeepingRouter');
 var passportRouter = require('./routes/passportRouter');
 
 // app.set('view engine', 'ejs');
@@ -31,12 +31,11 @@ var socketRouter = require('./routes/socketRouter')(io);
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-
-app.use(bodyParser.urlencoded({ extended: false  }));
 
 app.use(flash());
 app.use(session({
@@ -59,8 +58,9 @@ app.get('/KO', function (req, res) {
   return res.sendStatus(401)
 });
 
-passportRouter(app);
 
+passportRouter(app);
+bookkeepingRouter(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

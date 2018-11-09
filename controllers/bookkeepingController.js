@@ -2,20 +2,21 @@
 //console.log("OKR")
 const bookkeepingHandler = require('./../handler/bookkeepingHandler');
 module.exports = {
-    getCode: (req, res) => {
-        //let {totallyProfits,thisTimeNetProfits,machineNo,enteringCodeTimes,checkCode} = req.body;
-        console.log("OKE");
-        // let totallyProfits = req.body.totallyProfits;
-        // let thisTimeNetProfits = req.body.thisTimeNetProfits;
-        // let machineNo = req.body.machineNo;
-        // let enteringCodeTimes = req.body.enteringCodeTimes;
-        // let checkCode = req.body.checkCode;
+    getCode:async (req, res) => {
+        let data = {
+            totallyProfits:parseInt(req.body.totallyProfits),
+            thisTimeNetProfits:parseInt(req.body.thisTimeNetProfits),
+            machineNo:parseInt(req.body.machineNo),
+            enteringCodeTimes:parseInt(req.body.enteringCodeTimes),
+            checkCode:parseInt(req.body.checkCode)
+        }
+       
         
         //handle
-        //let code = bookkeepingHandler.handleCode(totallyProfits,thisTimeNetProfits,machineNo,enteringCodeTimes,checkCode);
+        let code =await bookkeepingHandler.handleCode(data);
 
-        console.log(req.body);
+
         //
-        res.json({password:1});
+        res.json({password:code});
     }
 }

@@ -4,7 +4,7 @@ module.exports = function(app) {
     let bookCtrl = require('./../controllers/bookkeepingController');
 
   // todoList Routes
-  app.route('/getCode')
+  app.route('/getCode')//Lấy license
     .post(bookCtrl.getCode);
 
 };
