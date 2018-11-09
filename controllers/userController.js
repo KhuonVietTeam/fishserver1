@@ -30,6 +30,7 @@ module.exports = {
     },
     store: (req, res) => {
         let data = req.body;
+        console.log(req.body)
         let sql = 'INSERT INTO users SET ?'
         db.query(sql, [data], (err, response) => {
             if (err) throw err

@@ -6,7 +6,7 @@ var passport = require('passport');
 // var passportConfig = require('./config/passport')(passport);
 var path = require('path');
 var cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser')
+var bodyParser = require('body-parser')
 require('dotenv').load();
 var logger = require('morgan');
 
@@ -17,6 +17,7 @@ var usersRouter = require('./routes/users');
 var socket_io    = require( "socket.io" );
 var todoRouter = require('./routes/todoRouter')(app);
 var usersRouter = require('./routes/userRouter')(app);
+var bookkeepingRouter = require('./routes/bookkeepingRouter')(app);
 var passportRouter = require('./routes/passportRouter');
 
 // app.set('view engine', 'ejs');
@@ -27,13 +28,16 @@ app.io           = io;
 var socketRouter = require('./routes/socketRouter')(io);
 
 
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json())
+
+
+app.use(bodyParser.urlencoded({ extended: false  }));
+
 app.use(flash());
 app.use(session({
   secret : "secret",
