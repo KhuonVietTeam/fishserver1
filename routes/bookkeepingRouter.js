@@ -5,7 +5,8 @@ module.exports = function(app) {
 
   // todoList Routes
   app.route('/getCode')//Lấy license
-    .post(bookCtrl.getCode);
-
+    .post(bookCtrl.getCode)
+  app.route('/getKey') //lấy key
+    .get(bookCtrl.getKey)
 };
 

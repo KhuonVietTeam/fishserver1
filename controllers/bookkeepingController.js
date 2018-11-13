@@ -18,5 +18,9 @@ module.exports = {
 
         //
         res.json({password:code});
+    },
+    getKey:async (req,res)=>{
+        let key = await bookkeepingHandler.getKey();
+        res.json(key);
     }
 }
