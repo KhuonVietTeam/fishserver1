@@ -55,9 +55,13 @@ app.use(passport.session());
 //   return res.json({status:'success'});
 // });
 app.get('/KO', function (req, res) {
-  return res.sendStatus(401)
+  return res.status(401).json({success:false})
 });
-
+app.get('/', function (req, res) {
+  console.log(req.isAuthenticated());
+  console.log(req.user);
+  res.send("OKE");
+});
 
 passportRouter(app);
 bookkeepingRouter(app);
