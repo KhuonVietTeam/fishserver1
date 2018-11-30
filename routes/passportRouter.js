@@ -14,7 +14,9 @@ module.exports = function(app) {
                                        console.log('Authentication Sucessful');
                                         req.flash('success', 'You have logged in');
                                         // return res.json({status:'success'});
-                                        return res.sendStatus(200)
+                                        let id=req.user.id;
+                                        let per = req.user.per;
+                                        return res.status(200).json({id,per,success:true})
 
 
                                      });

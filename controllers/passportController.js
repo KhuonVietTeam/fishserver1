@@ -19,6 +19,7 @@ module.exports = function(passport) {
     // hàm được gọi khi xác thực thành công để lưu thông tin user vào session
 
     passport.serializeUser(function(user, done) {
+          
 		      done(null, user.id);
     });
 
